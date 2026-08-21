@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teriteri.backend.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="com.teriteri.backend.pojo.entity.User">
+        <id property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="background" column="background"/>
+        <result property="gender" column="gender"/>
+        <result property="description" column="description"/>
+        <result property="exp" column="exp"/>
+        <result property="coin" column="coin"/>
+        <result property="vip" column="vip"/>
+        <result property="state" column="state"/>
+        <result property="role" column="role"/>
+        <result property="auth" column="auth"/>
+        <result property="authMsg" column="auth_msg"/>
+        <result property="createDate" column="create_date"/>
+        <result property="deleteDate" column="delete_date"/>
+    </resultMap>
+
+    <sql id="allColumns">
+        uid, username, password, nickname, avatar, background, gender, description,
+        exp, coin, vip, state, role, auth, auth_msg, create_date, delete_date
+    </sql>
+
+    <select id="selectByUsername" parameterType="string" resultMap="UserResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM `user`
+        WHERE username = #{username}
+    </select>
+
+    <insert id="insert" parameterType="com.teriteri.backend.pojo.entity.User"
+            useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO `user` (username, password, nickname, avatar, background, gender,
+                            description, exp, coin, vip, state, role, auth, create_date)
+        VALUES (#{username}, #{password}, #{nickname}, #{avatar}, #{background}, #{gender},
+                #{description}, #{exp}, #{coin}, #{vip}, #{state}, #{role}, #{auth}, #{createDate})
+    </insert>
+
+</mapper>
